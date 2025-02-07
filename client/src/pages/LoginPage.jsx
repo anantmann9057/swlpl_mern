@@ -18,7 +18,6 @@ export default function LoginPage() {
       .then(function (response) {
         if (response.data.status == "1") {
           setSentOtp(true);
-
           setEmpId(response.data.phone);
         }
         console.log(response.data);
@@ -39,6 +38,7 @@ export default function LoginPage() {
             JSON.stringify(response.data.user_details)
           );
           setToken(response.data.Authorization);
+          navigate("/");
         }
         console.log(response.data);
       })

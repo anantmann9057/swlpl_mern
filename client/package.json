@@ -28,6 +28,7 @@
     "express-sessions": "^1.0.6",
     "formidable": "^3.5.2",
     "google-auth-library": "^9.15.0",
+    "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.4.0",
     "mongoose": "^8.9.4",
@@ -46,10 +47,9 @@
     "react-toastify": "^11.0.2",
     "reshelper": "^1.0.4",
     "server": "file:",
+    "use-file-picker": "^2.1.2",
     "validator": "^13.12.0",
-    "zod": "^3.24.1",
-    "use-file-picker": "^2.1.2"
-
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

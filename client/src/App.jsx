@@ -16,15 +16,25 @@ function App() {
       m-0
       p-0
     >
-       <Header>
-       </Header>
+      <Header></Header>
       <Routes>
         <Route path="/" element={<HomePage />}>
           <Route path="/dashboard" element={<Dashboard />}></Route>
         </Route>
         <Route path="login" element={<LoginPage />}></Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
