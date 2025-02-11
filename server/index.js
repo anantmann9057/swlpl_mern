@@ -13,7 +13,7 @@ dotenv.config({ path: "../.env" });
 
 dbConnect();
 app.use(
-  cors({ origin: process.env.VITE_FRONT_END_BASE_URL, credentials: true })
+  cors({ origin: 'https://swlpl-mern-1.onrender.com', credentials: true })
 );
 app.use(express.json({limit: '50mb'}));
 // app.use(cookieParser());
@@ -23,7 +23,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     proxy: true,
-    cookie: { secure: false, maxAge: 900000, sameSite: "strict" }, // change sameSite: strict to sameSite:none for production and secure true
+    cookie: { secure: true, maxAge: 900000, sameSite: "none" }, // change sameSite: strict to sameSite:none for production and secure true
     unset: "destroy",
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_DB_URL, // you have to provide some storage to store session data
