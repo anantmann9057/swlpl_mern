@@ -62,7 +62,7 @@ export default function AttendanceCard() {
           .catch(console.error);
       });
       axios
-        .post("http://localhost:3000/attendance/attendanceStatus", {
+        .post("https://swlpl-mern.onrender.com/attendance/attendanceStatus", {
           authToken: localStorage.getItem("token"),
         })
         .then((response) => {
@@ -82,7 +82,7 @@ export default function AttendanceCard() {
     console.log(clockStatus);
     axios
       .post(
-        "http://localhost:3000/attendance/markAttendance",
+        "https://swlpl-mern.onrender.com/attendance/markAttendance",
         {
           authToken: localStorage.getItem("token"),
           clock_status: clockStatus,
