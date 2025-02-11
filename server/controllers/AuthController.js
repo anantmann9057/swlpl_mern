@@ -4,7 +4,7 @@ export const sendOtp = (req, res) => {
   console.log(req.query);
   axios
     .post(
-      "https://test.apnagodam.com/api/v1_apna_send_otp",
+      "https://apnagodam.com/api/v1_apna_send_otp",
 
       {
         withCredentials: true,
@@ -31,7 +31,7 @@ export const verifyOtp = (req, res) => {
   console.log(req.query);
   axios
     .post(
-      `https://test.apnagodam.com/api/v1_apna_emp_verify_otp?number=${req.query.empId}&otp=${req.query.otp}&app_type=Emp`,
+      `https://apnagodam.com/api/v1_apna_emp_verify_otp?number=${req.query.empId}&otp=${req.query.otp}&app_type=Emp`,
       {
         withCredentials: true,
       },

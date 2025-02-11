@@ -7,7 +7,7 @@ export const checkAttendance = (req, res) => {
   };
   axios
     .post(
-      "https://test.apnagodam.com/emp_api/apna_emp_clock_status_new",
+      "https://apnagodam.com/emp_api/apna_emp_clock_status_new",
       null,
       {
         headers: headers,
@@ -30,7 +30,7 @@ export const markAttendance = (req, res) => {
   };
   axios
     .post(
-      "https://test.apnagodam.com/emp_api/v1_apna_emp_attendance_new",
+      "https://apnagodam.com/emp_api/v1_apna_emp_attendance_new",
       {
         clock_status: req.body.clock_status,
           distance: req.body.distance,
