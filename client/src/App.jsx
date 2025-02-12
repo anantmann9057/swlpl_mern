@@ -15,9 +15,9 @@ function App() {
       className="container-fluid"
      
     >
-      <Header></Header>
       <Routes>
         <Route path="/" element={<HomePage />}>
+       
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Route>

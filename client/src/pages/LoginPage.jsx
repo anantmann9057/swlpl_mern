@@ -145,7 +145,7 @@ export default function LoginPage() {
               </form>
             </Card>
           </Col>
-          <Col
+          {/* <Col
             style={{
               alignContent: "center",
               color: "white",
@@ -153,7 +153,7 @@ export default function LoginPage() {
             }}
           >
             <h1>SWLPL Login</h1>
-          </Col>
+          </Col> */}
         </Row>
       )}
     </div>
