@@ -8,14 +8,13 @@ import * as dotenv from "dotenv";
 import authRouter from "./routes/AuthRouter.js";
 import { dbConnect } from "./database/db.js";
 import attendanceRouter from "./routes/AttendanceRouter.js";
+import caseRouter from "./routes/CaseRoutes.js";
 const app = express();
 dotenv.config({ path: "../.env" });
 
 dbConnect();
-app.use(
-  cors({ origin: 'https://swlpl-mern-1.onrender.com', credentials: true })
-);
-app.use(express.json({limit: '50mb'}));
+app.use(cors({ origin: "https://swlpl-mern-1.onrender.com", credentials: true }));
+app.use(express.json({ limit: "50mb" }));
 // app.use(cookieParser());
 app.use(
   session({
@@ -45,6 +44,14 @@ app.use(
     next();
   },
   attendanceRouter
+);
+
+app.use(
+  "/cases",
+  (req, res, next) => {
+    next();
+  },
+  caseRouter
 );
 app.get("/", (req, res) => {
   res.json("hello");

@@ -15,12 +15,12 @@ export default function Header() {
             <Nav className="me-auto">
               <Nav.Link
                 as={Link}
-                to='/profile'
+                to='/dashboard'
               >
                 Home
               </Nav.Link>
               <Nav.Link as={Link}
-                to='/dashboard'>Attendance</Nav.Link>
+                to='/attendance'>Attendance</Nav.Link>
 
               <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
               {localStorage.getItem("token") ? (

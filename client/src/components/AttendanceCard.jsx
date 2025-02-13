@@ -5,15 +5,9 @@ import axios from "axios";
 import { useFilePicker } from "use-file-picker";
 import { Col, Row } from "react-bootstrap";
 import html2canvas from "html2canvas";
-import {ToastContainer, toast } from "react-toastify";
-import {
-  setKey,
- 
-  fromLatLng,
-  
-} from "react-geocode";
+import { ToastContainer, toast } from "react-toastify";
+import { setKey, fromLatLng } from "react-geocode";
 export default function AttendanceCard() {
-
   const [clockStatus, setClockStatus] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [address, setAddress] = useState();
@@ -123,7 +117,7 @@ export default function AttendanceCard() {
   };
   return (
     <div className="container-fluid">
-                        <ToastContainer />
+      <ToastContainer />
 
       <Row className="w-100 m-2 p-2">
         <Col className="w-50">
@@ -141,6 +135,7 @@ export default function AttendanceCard() {
               </Card.Text>
               <Button
                 variant="primary"
+                className="m-2 w-100 container-fluid"
                 onClick={() => {
                   if (!image) {
                     openFilePicker();
@@ -149,11 +144,77 @@ export default function AttendanceCard() {
                   }
                 }}
               >
-
                 {image
                   ? `${clockStatus == 1 ? "Clock IN" : "Clock OUT"}`
                   : "Select Image"}
               </Button>
+              <div className="container-fluid" id="atn_image">
+                <div className="card bg-dark text-white">
+                  {image ? (
+                    <>
+                      <img
+                        className="container-fluid"
+                        src={image}
+                        alt={image.name}
+                        style={{
+                          backgroundImage: `${image}`,
+                          objectFit: "fill",
+                          maxHeight: "100vh",
+                        }}
+                      ></img>
+                      <div
+                        className="card-img-overlay container"
+                        style={{
+                          color: "white",
+                          maxHeight: "25vh",
+                        }}
+                      >
+                        {localStorage.getItem("user") ? (
+                          <h6 className="card-title" style={{
+                            textAlign:"start",
+                            fontSize:"10px"
+
+                          }}>
+                            {`${
+                              JSON.parse(localStorage.getItem("user"))
+                                .first_name
+                            } `}
+                            {`${
+                              JSON.parse(localStorage.getItem("user")).last_name
+                            } `}
+                            ({JSON.parse(localStorage.getItem("user")).emp_id})
+                          </h6>
+                        ) : (
+                          {}
+                        )}
+                        <h6 className="card-title " style={{
+                            textAlign:"start",
+                            fontSize:"10px"
+
+                          }}>
+                          {address ? address : ""} ,{" "}
+                        </h6>
+                        <h6 className="card-title " style={{
+                            textAlign:"start",
+                            fontSize:"10px"
+                          }}>
+                          {currentLocation ? currentLocation.latitude : ""} ,{" "}
+                          {currentLocation ? currentLocation.longitude : ""}
+                        </h6>
+
+                        <h6 className="card-title " style={{
+                            textAlign:"start",
+                            fontSize:"10px"
+
+                          }}>
+                          {new Date().toLocaleDateString()}{" "}
+                          {new Date().toLocaleTimeString()}
+                        </h6>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              </div>
             </Card.Body>
             <Card.Footer
               className={`text-muted ${
@@ -174,59 +235,6 @@ export default function AttendanceCard() {
               </h6>
             </Card.Footer>
           </Card>
-        </Col>
-        <Col className="w-50">
-          <div className="container" id="atn_image">
-            <div className="card bg-dark text-white">
-              {image ? (
-                <>
-                  <img
-                    className="container"
-                    src={image}
-                    alt={image.name}
-                    style={{
-                      backgroundImage: `${image}`,
-                      objectFit: "contain",
-                      maxHeight: "100vh",
-                    }}
-                  ></img>
-                  <div
-                    className="card-img-overlay container-fluid"
-                    style={{
-                      color: "white",
-                      maxHeight: "25vh",
-                    }}
-                  >
-                    {localStorage.getItem("user") ? (
-                      <h6 className="card-title ">
-                        {`${
-                          JSON.parse(localStorage.getItem("user")).first_name
-                        } `}
-                        {`${
-                          JSON.parse(localStorage.getItem("user")).last_name
-                        } `}
-                        ({JSON.parse(localStorage.getItem("user")).emp_id})
-                      </h6>
-                    ) : (
-                      {}
-                    )}
-                    <h6 className="card-title ">{address ? address : ""} , </h6>
-                    <h6 className="card-title ">
-                      {currentLocation ? currentLocation.latitude : ""} ,{" "}
-                      {currentLocation ? currentLocation.longitude : ""}
-                    </h6>
-
-                    <h6 className="card-title ">
-                      {new Date().toLocaleDateString()}{" "}
-                      {new Date().toLocaleTimeString()}
-                    </h6>
-                  </div>
-                </>
-              ) : (
-                "Upload Image"
-              )}
-            </div>
-          </div>
         </Col>
       </Row>
     </div>
