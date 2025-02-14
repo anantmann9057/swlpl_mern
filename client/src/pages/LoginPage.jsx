@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [empId, setEmpId] = useState("");
   function sendOtp() {
     axios
-      .post(`https://swlpl-mern.onrender.com/auth/sendOtp?empId=${empId}`)
+      .post(import.meta.env.VITE_SERVER_BASE_URL+`/auth/sendOtp?empId=${empId}`)
       .then(function (response) {
         if (response.data.status == "1") {
           setSentOtp(true);
@@ -30,7 +30,7 @@ export default function LoginPage() {
   }
   function verifyOtp() {
     axios
-      .post(`https://swlpl-mern.onrender.com/auth/verifyOtp?empId=${empId}&otp=${otp}`)
+      .post(import.meta.env.VITE_SERVER_BASE_URL+`/auth/verifyOtp?empId=${empId}&otp=${otp}`)
       .then(function (response) {
         if (response.data.status == "1") {
           setSentOtp(true);

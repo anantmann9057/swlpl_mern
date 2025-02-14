@@ -42,11 +42,15 @@ export default function AttendanceCard() {
     if (auth) {
       navigator.geolocation.getCurrentPosition((success, error) => {
         if (error) {
+          toast("Failed to fetch Location!");
           setCurrentLocation(null);
         }
+        
         setCurrentLocation(success.coords);
-        console.log(success.coords.latitude, success.coords.longitude);
 
+       
+        console.log(success.coords.latitude, success.coords.longitude);
+       
         fromLatLng(success.coords.latitude, success.coords.longitude)
           .then(({ results }) => {
             const { lat, lng } = results[0].geometry.location;
@@ -56,7 +60,7 @@ export default function AttendanceCard() {
           .catch(console.error);
       });
       axios
-        .post("https://swlpl-mern.onrender.com/attendance/attendanceStatus", {
+        .post(import.meta.env.VITE_SERVER_BASE_URL+"/attendance/attendanceStatus", {
           authToken: localStorage.getItem("token"),
         })
         .then((response) => {
@@ -76,7 +80,7 @@ export default function AttendanceCard() {
     console.log(clockStatus);
     axios
       .post(
-        "https://swlpl-mern.onrender.com/attendance/markAttendance",
+        import.meta.env.VITE_SERVER_BASE_URL+"/attendance/markAttendance",
         {
           authToken: localStorage.getItem("token"),
           clock_status: clockStatus,
