@@ -21,7 +21,6 @@ export default function Header() {
               <Nav.Link as={Link}
                 to='/attendance'>Attendance</Nav.Link>
 
-              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
               {localStorage.getItem("token") ? (
                 <Nav.Link
                   href="/"
@@ -43,7 +42,7 @@ export default function Header() {
               )}
               {localStorage.getItem("user") ? (
                 <Nav.Link
-                  href="/"
+                  as={Link} to="/profile"
                   onClick={() => {
 
                   }}

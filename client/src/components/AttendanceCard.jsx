@@ -9,6 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { setKey, fromLatLng } from "react-geocode";
 
 import { useNavigate } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 export default function AttendanceCard() {
   const [clockStatus, setClockStatus] = useState();
   const [currentLocation, setCurrentLocation] = useState();
@@ -16,6 +18,7 @@ export default function AttendanceCard() {
   const auth = localStorage.getItem("token");
   setKey("AIzaSyCBSE9f-8MEb5om7pzPBJo1yt-9ObNYhA4"); // Your API key here.
   const navigate = useNavigate();
+  const [open,setOpen] = useState(false);
 
   const [image, updateImage] = useState();
   const { openFilePicker, filesContent, loading, errors } = useFilePicker({
@@ -43,17 +46,17 @@ export default function AttendanceCard() {
 
   useEffect(() => {
     if (auth) {
+      setOpen(true);
       navigator.geolocation.getCurrentPosition((success, error) => {
         if (error) {
           toast("Failed to fetch Location!");
           setCurrentLocation(null);
         }
-        
+
         setCurrentLocation(success.coords);
 
-       
         console.log(success.coords.latitude, success.coords.longitude);
-       
+
         fromLatLng(success.coords.latitude, success.coords.longitude)
           .then(({ results }) => {
             const { lat, lng } = results[0].geometry.location;
@@ -63,10 +66,15 @@ export default function AttendanceCard() {
           .catch(console.error);
       });
       axios
-        .post(import.meta.env.VITE_SERVER_BASE_URL+"/attendance/attendanceStatus", {
-          authToken: localStorage.getItem("token"),
-        })
+        .post(
+          import.meta.env.VITE_SERVER_BASE_URL + "/attendance/attendanceStatus",
+          {
+            authToken: localStorage.getItem("token"),
+          }
+        )
         .then((response) => {
+          setOpen(false);
+
           if (response.data.status == "3") {
             localStorage.clear();
           }
@@ -75,20 +83,22 @@ export default function AttendanceCard() {
           setClockStatus(clock);
           console.log(response);
           console.log(clockStatus);
+        }).catch((e)=>{        setOpen(false);
         });
-    }else{
+
+    } else {
       navigate("/login");
     }
   }, []);
 
   const postAttendance = (base64Image) => {
     console.log(clockStatus);
-    if(!auth){
-      navigate('/login');
+    if (!auth) {
+      navigate("/login");
     }
     axios
       .post(
-        import.meta.env.VITE_SERVER_BASE_URL+"/attendance/markAttendance",
+        import.meta.env.VITE_SERVER_BASE_URL + "/attendance/markAttendance",
         {
           authToken: localStorage.getItem("token"),
           clock_status: clockStatus,
@@ -129,6 +139,12 @@ export default function AttendanceCard() {
   };
   return (
     <div className="container-fluid">
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <ToastContainer />
 
       <Row className="w-100 m-2 p-2">
@@ -182,11 +198,13 @@ export default function AttendanceCard() {
                         }}
                       >
                         {localStorage.getItem("user") ? (
-                          <h6 className="card-title" style={{
-                            textAlign:"start",
-                            fontSize:"10px"
-
-                          }}>
+                          <h6
+                            className="card-title"
+                            style={{
+                              textAlign: "start",
+                              fontSize: "10px",
+                            }}
+                          >
                             {`${
                               JSON.parse(localStorage.getItem("user"))
                                 .first_name
@@ -199,26 +217,33 @@ export default function AttendanceCard() {
                         ) : (
                           {}
                         )}
-                        <h6 className="card-title " style={{
-                            textAlign:"start",
-                            fontSize:"10px"
-
-                          }}>
+                        <h6
+                          className="card-title "
+                          style={{
+                            textAlign: "start",
+                            fontSize: "10px",
+                          }}
+                        >
                           {address ? address : ""} ,{" "}
                         </h6>
-                        <h6 className="card-title " style={{
-                            textAlign:"start",
-                            fontSize:"10px"
-                          }}>
+                        <h6
+                          className="card-title "
+                          style={{
+                            textAlign: "start",
+                            fontSize: "10px",
+                          }}
+                        >
                           {currentLocation ? currentLocation.latitude : ""} ,{" "}
                           {currentLocation ? currentLocation.longitude : ""}
                         </h6>
 
-                        <h6 className="card-title " style={{
-                            textAlign:"start",
-                            fontSize:"10px"
-
-                          }}>
+                        <h6
+                          className="card-title "
+                          style={{
+                            textAlign: "start",
+                            fontSize: "10px",
+                          }}
+                        >
                           {new Date().toLocaleDateString()}{" "}
                           {new Date().toLocaleTimeString()}
                         </h6>

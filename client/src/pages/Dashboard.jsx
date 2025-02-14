@@ -6,19 +6,26 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 export default function Dashboard() {
   const auth = localStorage.getItem("token");
   const [inwardCases, setInwardCases] = useState([]);
   const [outwardCases, setOutwardCases] = useState([]);
   const navigate = useNavigate();
-
+  const [open,setOpen] = useState(false);
   useEffect(() => {
     if (auth) {
+      setOpen(true);
       axios
         .post(import.meta.env.VITE_SERVER_BASE_URL + "/cases/caseRequests", {
           authToken: localStorage.getItem("token"),
         })
         .then((response) => {
+          setOpen(false);
+
           if (response.data.status == "3") {
             localStorage.clear();
           } else if (response.data.status == "1") {
@@ -29,7 +36,11 @@ export default function Dashboard() {
           }
 
           console.log(response);
+        }).catch((e)=>{
+          setOpen(false);
+
         });
+
     } else {
       navigate("/login");
     }
@@ -37,6 +48,13 @@ export default function Dashboard() {
 
   return (
     <>
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+<CircularProgress color="inherit" />
+
+      </Backdrop>
       <ToastContainer></ToastContainer>
       <Header />
       <Row className="container-fluid">
