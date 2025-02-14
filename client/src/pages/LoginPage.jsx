@@ -5,9 +5,11 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import { Col, Row } from "react-bootstrap";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const [isOtpSent, setSentOtp] = useState(false);
   const [otp, setOtp] = useState();
@@ -15,9 +17,14 @@ export default function LoginPage() {
 
   const [empId, setEmpId] = useState("");
   function sendOtp() {
+    setOpen(true);
     axios
-      .post(import.meta.env.VITE_SERVER_BASE_URL+`/auth/sendOtp?empId=${empId}`)
+      .post(
+        import.meta.env.VITE_SERVER_BASE_URL + `/auth/sendOtp?empId=${empId}`
+      )
       .then(function (response) {
+        setOpen(false);
+
         if (response.data.status == "1") {
           setSentOtp(true);
           setEmpId(response.data.phone);
@@ -26,12 +33,20 @@ export default function LoginPage() {
       })
       .catch(function (error) {
         console.log(error);
+        setOpen(false);
       });
   }
   function verifyOtp() {
+    setOpen(true);
+
     axios
-      .post(import.meta.env.VITE_SERVER_BASE_URL+`/auth/verifyOtp?empId=${empId}&otp=${otp}`)
+      .post(
+        import.meta.env.VITE_SERVER_BASE_URL +
+          `/auth/verifyOtp?empId=${empId}&otp=${otp}`
+      )
       .then(function (response) {
+        setOpen(false);
+
         if (response.data.status == "1") {
           setSentOtp(true);
           localStorage.setItem("token", response.data.Authorization);
@@ -46,6 +61,7 @@ export default function LoginPage() {
       })
       .catch(function (error) {
         console.log(error);
+        setOpen(false);
       });
   }
   return (
@@ -56,6 +72,13 @@ export default function LoginPage() {
         alignContent: "center",
       }}
     >
+      {" "}
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       {isOtpSent ? (
         <div
           className="container-fluid 2-100"
@@ -69,8 +92,7 @@ export default function LoginPage() {
             value={otp}
             onChange={(orp) => {
               setOtp(orp);
-              if (otp.length === 6) {
-                verifyOtp(orp);
+              if (otp.length == 6) {
               }
               console.log(orp);
             }}

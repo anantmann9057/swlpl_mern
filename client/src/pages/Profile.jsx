@@ -65,10 +65,7 @@ export default function Profile() {
           }}
         ></img>
       </Row>
-      <div
-        className="container w-100 d-flex justify-content-between"
-        style={{}}
-      >
+      <Row className="container-fluid">
         <Button variant="light" className="container-fluid w-100 m-1">
           {JSON.parse(localStorage.getItem("user")).first_name}{" "}
           {JSON.parse(localStorage.getItem("user")).last_name}
@@ -85,7 +82,7 @@ export default function Profile() {
         <Button variant="light" className="container-fluid w-100 m-1">
           {JSON.parse(localStorage.getItem("user")).phone}
         </Button>
-      </div>
+      </Row>
     </div>
   );
 }

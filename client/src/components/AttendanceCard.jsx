@@ -18,9 +18,12 @@ export default function AttendanceCard() {
   const auth = localStorage.getItem("token");
   setKey("AIzaSyCBSE9f-8MEb5om7pzPBJo1yt-9ObNYhA4"); // Your API key here.
   const navigate = useNavigate();
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [image, updateImage] = useState();
+
+  const [locationLoading, setLocationLoading] = useState(true);
+
   const { openFilePicker, filesContent, loading, errors } = useFilePicker({
     readAs: "DataURL",
     accept: "image/*",
@@ -53,6 +56,7 @@ export default function AttendanceCard() {
           setCurrentLocation(null);
         }
 
+        setLocationLoading(false);
         setCurrentLocation(success.coords);
 
         console.log(success.coords.latitude, success.coords.longitude);
@@ -83,9 +87,10 @@ export default function AttendanceCard() {
           setClockStatus(clock);
           console.log(response);
           console.log(clockStatus);
-        }).catch((e)=>{        setOpen(false);
+        })
+        .catch((e) => {
+          setOpen(false);
         });
-
     } else {
       navigate("/login");
     }
@@ -152,30 +157,35 @@ export default function AttendanceCard() {
           <Card className="text-center">
             <Card.Header>Attendance</Card.Header>
             <Card.Body>
-              <Card.Title>
-                {currentLocation
-                  ? `${currentLocation.latitude} , ${currentLocation.longitude}`
-                  : "Failed to fetch location"}{" "}
-              </Card.Title>
-              <Card.Text></Card.Text>
-              <Card.Text>
-                {address ? address : "Failed to fetch location"}
-              </Card.Text>
-              <Button
-                variant="primary"
-                className="m-2 w-100 container-fluid"
-                onClick={() => {
-                  if (!image) {
-                    openFilePicker();
-                  } else {
-                    handleDownloadImage();
-                  }
-                }}
-              >
-                {image
-                  ? `${clockStatus == 1 ? "Clock IN" : "Clock OUT"}`
-                  : "Select Image"}
-              </Button>
+              {locationLoading ? (
+                <CircularProgress></CircularProgress>
+              ) : (
+                <div>
+                  <Card.Title>
+                    {currentLocation
+                      ? `${currentLocation.latitude} , ${currentLocation.longitude}`
+                      : "Failed to fetch location"}
+                  </Card.Title>
+                  <Card.Text>
+                    {address ? address : "Failed to fetch location"}
+                  </Card.Text>
+                  <Button
+                    variant="primary"
+                    className="m-2 w-100 container-fluid"
+                    onClick={() => {
+                      if (!image) {
+                        openFilePicker();
+                      } else {
+                        handleDownloadImage();
+                      }
+                    }}
+                  >
+                    {image
+                      ? `${clockStatus == 1 ? "Clock IN" : "Clock OUT"}`
+                      : "Select Image"}
+                  </Button>
+                </div>
+              )}
               <div className="container-fluid" id="atn_image">
                 <div className="card bg-dark text-white">
                   {image ? (

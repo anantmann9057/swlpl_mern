@@ -1,9 +1,9 @@
 export default function CaseIdCard(props) {
   return (
-    <div className="w-100">
+    <div className="w-100 m-2">
       <div
-        className="card text-white bg-info mb-3 "
-       
+        className="card text-white bg-info mb-3"
+     
       >
         <div className="card-header">{props.header}</div>
         <div className="card-body">
