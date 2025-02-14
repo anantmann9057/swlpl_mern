@@ -21,13 +21,15 @@ export default function Dashboard() {
           if (response.data.status == "3") {
             localStorage.clear();
           
-
           }
-          setInwardCases(response.data.inward_request_data);
-          setOutwardCases(response.data.outward_request_data);
-
-         
-          toast(response.data.status.message);
+          else if(response.data.status=="1"){
+            setInwardCases(response.data.inward_request_data);
+            setOutwardCases(response.data.outward_request_data);
+  
+           
+            toast(response.data.status.message);
+          }
+       
     
           console.log(response);
         });

@@ -4,7 +4,7 @@ export const sendOtp = (req, res) => {
   console.log(req.query);
   axios
     .post(
-      process.env.PRODUCTION_URL+ "/api/v1_apna_send_otp",
+      process.env.PRODUCTION_URL + "/api/v1_apna_send_otp",
 
       {
         withCredentials: true,
@@ -31,7 +31,8 @@ export const verifyOtp = (req, res) => {
   console.log(req.query);
   axios
     .post(
-      process.env.PRODUCTION_URL+`/api/v1_apna_emp_verify_otp?number=${req.query.empId}&otp=${req.query.otp}&app_type=Emp`,
+      process.env.PRODUCTION_URL +
+        `/api/v1_apna_emp_verify_otp?number=${req.query.empId}&otp=${req.query.otp}&app_type=Emp`,
       {
         withCredentials: true,
       },
@@ -54,16 +55,22 @@ export const verifyOtp = (req, res) => {
     });
 };
 
-export const getUserProfile = (req,res)=>{
+export const getUserProfile = (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: req.body.authToken,
+  };
   axios
     .post(
-      process.env.PRODUCTION_URL+`/emp_api/apna_emp_profile?app_type=Emp`,
+      process.env.PRODUCTION_URL + `/emp_api/apna_emp_profile?app_type=Emp`,
       {
         withCredentials: true,
       },
       {
+        headers: headers,
+      },
+      {
         params: {
-          
           app_type: "Emp",
         },
       }
@@ -77,4 +84,4 @@ export const getUserProfile = (req,res)=>{
         error: error,
       });
     });
-}
+};
