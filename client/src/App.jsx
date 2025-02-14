@@ -13,7 +13,7 @@ function App() {
       style={{
         height: "100vh",
       }}
-      className="container-fluid"
+      className="container-fluid p-0 m-0"
      
     >
       <Routes>

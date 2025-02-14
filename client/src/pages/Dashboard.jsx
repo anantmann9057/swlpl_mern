@@ -4,48 +4,55 @@ import CaseIdCard from "../components/CaseIdCard";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const auth = localStorage.getItem("token");
-  const [inwardCases,setInwardCases] = useState([]);
-  const [outwardCases,setOutwardCases] = useState([]);
+  const [inwardCases, setInwardCases] = useState([]);
+  const [outwardCases, setOutwardCases] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth) {
-     
       axios
-        .post(import.meta.env.VITE_SERVER_BASE_URL+"/cases/caseRequests", {
+        .post(import.meta.env.VITE_SERVER_BASE_URL + "/cases/caseRequests", {
           authToken: localStorage.getItem("token"),
         })
         .then((response) => {
           if (response.data.status == "3") {
             localStorage.clear();
-          
-          }
-          else if(response.data.status=="1"){
+          } else if (response.data.status == "1") {
             setInwardCases(response.data.inward_request_data);
             setOutwardCases(response.data.outward_request_data);
-  
-           
+
             toast(response.data.status.message);
           }
-       
-    
+
           console.log(response);
         });
+    } else {
+      navigate("/login");
     }
   }, []);
 
   return (
     <>
-    <ToastContainer></ToastContainer>
+      <ToastContainer></ToastContainer>
       <Header />
       <Row className="container-fluid">
         <Col>
-          <CaseIdCard title="Inwards Requests" header="Inwards" cases={inwardCases.length} />
+          <CaseIdCard
+            title="Inwards Requests"
+            header="Inwards"
+            cases={inwardCases.length}
+          />
         </Col>
         <Col>
-          <CaseIdCard title="Outwards Requests" header="Outwards" cases={outwardCases.length} />
+          <CaseIdCard
+            title="Outwards Requests"
+            header="Outwards"
+            cases={outwardCases.length}
+          />
         </Col>
       </Row>
     </>

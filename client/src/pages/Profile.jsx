@@ -16,11 +16,12 @@ export default function Profile() {
         .then((response) => {
           if (response.data.status == "3") {
             localStorage.clear();
-            navigate('/login');
-
+            navigate("/login");
           }
           toast(response.data.message);
         });
+    } else {
+      navigate("/login");
     }
   }, []);
 

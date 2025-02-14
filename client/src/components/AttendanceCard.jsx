@@ -7,12 +7,15 @@ import { Col, Row } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import { ToastContainer, toast } from "react-toastify";
 import { setKey, fromLatLng } from "react-geocode";
+
+import { useNavigate } from "react-router-dom";
 export default function AttendanceCard() {
   const [clockStatus, setClockStatus] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [address, setAddress] = useState();
   const auth = localStorage.getItem("token");
   setKey("AIzaSyCBSE9f-8MEb5om7pzPBJo1yt-9ObNYhA4"); // Your API key here.
+  const navigate = useNavigate();
 
   const [image, updateImage] = useState();
   const { openFilePicker, filesContent, loading, errors } = useFilePicker({
@@ -73,11 +76,16 @@ export default function AttendanceCard() {
           console.log(response);
           console.log(clockStatus);
         });
+    }else{
+      navigate("/login");
     }
   }, []);
 
   const postAttendance = (base64Image) => {
     console.log(clockStatus);
+    if(!auth){
+      navigate('/login');
+    }
     axios
       .post(
         import.meta.env.VITE_SERVER_BASE_URL+"/attendance/markAttendance",

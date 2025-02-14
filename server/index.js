@@ -22,7 +22,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     proxy: true,
-    cookie: { secure: false, maxAge: 900000, sameSite: "strict" }, // chang1e sameSite: strict to sameSite:none for production and secure true
+    cookie: { secure: true, maxAge: 900000, sameSite: "none" }, // chang1e sameSite: strict to sameSite:none for production and secure true
     unset: "destroy",
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_DB_URL, // you have to provide some storage to store session data
