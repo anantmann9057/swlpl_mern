@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [inwardCases, setInwardCases] = useState([]);
   const [outwardCases, setOutwardCases] = useState([]);
   const navigate = useNavigate();
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (auth) {
       setOpen(true);
@@ -36,11 +36,10 @@ export default function Dashboard() {
           }
 
           console.log(response);
-        }).catch((e)=>{
+        })
+        .catch((e) => {
           setOpen(false);
-
         });
-
     } else {
       navigate("/login");
     }
@@ -52,8 +51,7 @@ export default function Dashboard() {
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
       >
-<CircularProgress color="inherit" />
-
+        <CircularProgress color="inherit" />
       </Backdrop>
       <ToastContainer></ToastContainer>
       <Header />

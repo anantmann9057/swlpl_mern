@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "react-bootstrap/Button";
+import { Stack } from "@mui/material";
 export default function Profile() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -65,7 +66,10 @@ export default function Profile() {
           }}
         ></img>
       </Row>
-      <Row className="container-fluid">
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+      >
         <Button variant="light" className="container-fluid w-100 m-1">
           {JSON.parse(localStorage.getItem("user")).first_name}{" "}
           {JSON.parse(localStorage.getItem("user")).last_name}
@@ -82,7 +86,7 @@ export default function Profile() {
         <Button variant="light" className="container-fluid w-100 m-1">
           {JSON.parse(localStorage.getItem("user")).phone}
         </Button>
-      </Row>
+      </Stack>
     </div>
   );
 }

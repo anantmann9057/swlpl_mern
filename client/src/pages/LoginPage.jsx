@@ -112,71 +112,58 @@ export default function LoginPage() {
           </Button>
         </div>
       ) : (
-        <Row>
-          <Col>
-            <Card
-              elevation={3}
-              className="p-4 m-0"
-              style={{
-                height: "50vh",
-              }}
-            >
-              <form
-                className="form-group m-2 p-2 w-100"
-                style={{
-                  height: "150px",
-                }}
-              >
-                <h2>Login</h2>
-                <div
-                  style={{
-                    alignContent: "center",
-                  }}
-                >
-                  <label
-                    htmlFor="exampleInputEmail1"
-                    className="w-100"
-                    style={{
-                      textAlign: "start",
-                    }}
-                  >
-                    Employee Code
-                  </label>
-                  <input
-                    className="form-control mt-2 w-100"
-                    id="empId"
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setEmpId(e.target.value);
-                    }}
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Employee Code"
-                  ></input>
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary mt-4 w-10"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    sendOtp(empId);
-                  }}
-                >
-                  send OTP
-                </button>
-              </form>
-            </Card>
-          </Col>
-          {/* <Col
+        <Card
+          elevation={3}
+          className="p-4 m-0"
+          style={{
+            height: "50vh",
+          }}
+        >
+          <form
+            className="form-group m-2 p-2 w-100"
             style={{
-              alignContent: "center",
-              color: "white",
-              backgroundColor: "#157173",
+              height: "150px",
             }}
           >
-            <h1>SWLPL Login</h1>
-          </Col> */}
-        </Row>
+            <h2>Login</h2>
+            <div
+              style={{
+                alignContent: "center",
+              }}
+            >
+              <label
+                htmlFor="exampleInputEmail1"
+                className="w-100"
+                style={{
+                  textAlign: "start",
+                }}
+              >
+                Employee Code
+              </label>
+              <input
+                className="form-control mt-2 w-100"
+                id="empId"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setEmpId(e.target.value);
+                }}
+                aria-describedby="emailHelp"
+                placeholder="Enter Employee Code"
+              ></input>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary mt-4 w-10"
+              onClick={(e) => {
+                e.preventDefault();
+                sendOtp(empId);
+              }}
+            >
+              send OTP
+            </button>
+          </form>
+        </Card>
       )}
     </div>
   );
