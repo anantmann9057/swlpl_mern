@@ -13,7 +13,7 @@ const app = express();
 dotenv.config({ path: "../.env" });
 
 dbConnect();
-app.use(cors({ origin:process.env.VITE_FRONT_END_BASE_URL, credentials: true }));
+app.use(cors({ origin:process.env.VITE_FRONT_END_BASE_URL, credentials: false }));
 app.use(express.json({ limit: "50mb" }));
 // app.use(cookieParser());
 app.use(
