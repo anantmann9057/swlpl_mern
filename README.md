@@ -1,13 +1,16 @@
 NODE_ENV = test
 
-# MONGO_DB_URL= "mongodb://localhost:27017/"
+// MONGO_DB_URL= "mongodb://localhost:27017/"
 PORT=3000
 VITE_FRONT_END_BASE_URL="http://localhost:5173"
 VITE_SERVER_BASE_URL ="http://localhost:3000"
 
+// PRODUCTION_URL="https://apnagodam.com";
+PRODUCTION_URL="https://test.apnagodam.com"
+
 MONGO_DB_URL= "mongodb+srv://anantmann9057:TVOZ7LasWAy6obga@boutique.1quc0.mongodb.net/"
-# VITE_FRONT_END_BASE_URL="https://beautious-boutique.onrender.com"
-# VITE_SERVER_BASE_URL ="https://boutique-i5to.onrender.com"
+// VITE_FRONT_END_BASE_URL="https://swlpl-mern-1.onrender.com"
+// VITE_SERVER_BASE_URL ="https://swlpl-mern.onrender.com"
 
 
 
