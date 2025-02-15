@@ -101,6 +101,8 @@ export default function AttendanceCard() {
     if (!auth) {
       navigate("/login");
     }
+
+    setOpen(true);
     axios
       .post(
         import.meta.env.VITE_SERVER_BASE_URL + "/attendance/markAttendance",
@@ -115,6 +117,8 @@ export default function AttendanceCard() {
         {}
       )
       .then((response) => {
+        setOpen(false);
+
         if (response.data.status == "3") {
           localStorage.clear();
         }
@@ -123,10 +127,14 @@ export default function AttendanceCard() {
         console.log(response.data);
       })
       .catch(function (error) {
+        setOpen(false);
+
         // handle error
         console.log(error);
       })
       .finally(function () {
+        setOpen(false);
+
         // always executed
       });
   };

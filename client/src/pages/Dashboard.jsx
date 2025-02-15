@@ -1,14 +1,15 @@
-import { Col, Row } from "react-bootstrap";
-import AttendanceCard from "../components/AttendanceCard";
+
 import CaseIdCard from "../components/CaseIdCard";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import SouthWestIcon from '@mui/icons-material/SouthWest';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Stack } from "@mui/material";
 
 export default function Dashboard() {
   const auth = localStorage.getItem("token");
@@ -55,22 +56,25 @@ export default function Dashboard() {
       </Backdrop>
       <ToastContainer></ToastContainer>
       <Header />
-      <Row className="container-fluid">
-        <Col>
-          <CaseIdCard
+      <Stack
+        direction={{ xs: "row", sm: "row" }}
+        spacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}
+      >
+        <CaseIdCard
             title="Inwards Requests"
             header="Inwards"
+            icon={ <SouthWestIcon></SouthWestIcon>}
             cases={inwardCases.length}
           />
-        </Col>
-        <Col>
-          <CaseIdCard
+
+<CaseIdCard
             title="Outwards Requests"
             header="Outwards"
+            icon={ <NorthEastIcon></NorthEastIcon>}
             cases={outwardCases.length}
           />
-        </Col>
-      </Row>
+      </Stack>
+     
     </>
   );
 }
