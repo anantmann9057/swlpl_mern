@@ -5,6 +5,7 @@ import axios from "axios";
 import Dashboard from "./Dashboard";
 import {  toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import SignIn from "./SignIn";
 
 export default function HomePage() {
   const [isLogin, setLogin] = useState(false);
@@ -26,7 +27,7 @@ export default function HomePage() {
       {isLogin ? (
       <Dashboard></Dashboard>
       ) : (
-        <LoginPage />
+        <SignIn />
       )}
     </div>
   );
