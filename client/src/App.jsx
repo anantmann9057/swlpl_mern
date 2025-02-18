@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes, } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import { ToastContainer } from "react-bootstrap";
 import LoginPage from "./pages/LoginPage";
@@ -14,20 +14,16 @@ function App() {
         height: "100vh",
       }}
       className="container-fluid p-0 m-0"
-     
     >
       <Routes>
-        <Route path="/" element={<HomePage />}>
-
-        </Route>
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="attendance" element={<Attendance />}></Route>
 
         <Route path="profile" element={<Profile />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
       </Routes>
-      <ToastContainer
-      />
+      <ToastContainer />
     </div>
   );
 }

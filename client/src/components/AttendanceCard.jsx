@@ -139,6 +139,7 @@ export default function AttendanceCard() {
       });
   };
 
+  
   const handleDownloadImage = async () => {
     const element = document.getElementById("atn_image"),
       canvas = await html2canvas(element),

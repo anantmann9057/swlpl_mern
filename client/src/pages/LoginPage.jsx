@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import { Col, Row } from "react-bootstrap";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { toast, ToastContainer } from "react-toastify";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -72,7 +73,7 @@ export default function LoginPage() {
         alignContent: "center",
       }}
     >
-      {" "}
+      <ToastContainer></ToastContainer>{" "}
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
@@ -92,8 +93,7 @@ export default function LoginPage() {
             value={otp}
             onChange={(orp) => {
               setOtp(orp);
-              if (otp.length == 6) {
-              }
+
               console.log(orp);
             }}
           />
@@ -104,7 +104,11 @@ export default function LoginPage() {
           <Button
             variant="primary"
             onClick={() => {
-              verifyOtp(otp);
+              if (otp.length === 6) {
+                verifyOtp(otp);
+              } else {
+                toast("please enter valid otp");
+              }
               navigate("/");
             }}
           >
