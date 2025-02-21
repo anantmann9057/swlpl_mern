@@ -12,6 +12,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useNavigate } from "react-router-dom";
+import { NavbarBrand } from "react-bootstrap";
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -52,6 +53,26 @@ export default function AppAppBar() {
           <Box
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
+           <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              >
+                <img
+                  className="rounded-circle"
+                  src={
+                    "https://apnagodam.com/resources/assets/upload/employees/" +
+                    JSON.parse(localStorage.getItem("user")).passport_image
+                  }
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                  }}
+                ></img>
+              </Button>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Button
                 variant="text"
@@ -74,29 +95,7 @@ export default function AppAppBar() {
                 Attendance
               </Button>
 
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                onClick={() => {
-                  navigate("/profile");
-                }}
-              >
-                <img
-                  className="rounded-circle"
-                  src={
-                    "https://apnagodam.com/resources/assets/upload/employees/" +
-                    JSON.parse(localStorage.getItem("user")).passport_image
-                  }
-                  style={
-                      {
-                        width:"25px",
-                        height:"25px",
-                        
-                      }
-                    }
-                ></img>
-              </Button>
+             
             </Box>
           </Box>
           <Box
@@ -112,6 +111,7 @@ export default function AppAppBar() {
               size="small"
               onClick={() => {
                 localStorage.clear();
+                window.location.reload();
               }}
             >
               Logout
@@ -172,6 +172,7 @@ export default function AppAppBar() {
                     size="small"
                     onClick={() => {
                       localStorage.clear();
+                      window.location.reload();
                     }}
                   >
                     Logout

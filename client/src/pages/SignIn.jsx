@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { toast, ToastContainer } from "react-toastify";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -166,6 +168,12 @@ export default function SignIn() {
     <>
       <ToastContainer></ToastContainer>
       <CssBaseline enableColorScheme />
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <SignInContainer direction="column" justifyContent="space-between">
         <Card variant="outlined" className="container-fluid">
           {isOtpSent ? (
