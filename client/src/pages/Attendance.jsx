@@ -1,17 +1,17 @@
+import AppAppBar from "../components/AppBar";
 import AttendanceCard from "../components/AttendanceCard";
 import AttendanceTab from "../components/AttendanceTab";
-import Header from "../components/Header";
 
 export default function Attendance() {
 
   return (
-    <>
-      <Header></Header>
+    <div className="mt-5">
+      <AppAppBar></AppAppBar>
       <div>
       
         <AttendanceCard></AttendanceCard>
         <AttendanceTab></AttendanceTab>
       </div>
-    </>
+    </div>
   );
 }

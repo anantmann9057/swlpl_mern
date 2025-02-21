@@ -8,6 +8,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "react-bootstrap/Button";
 import { Stack } from "@mui/material";
+import AppAppBar from "../components/AppBar";
 export default function Profile() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="container-fluid m-0 p-0 w-100">
+    <div className="container-fluid m-0 p-0 w-100 mt-5">
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
@@ -51,7 +52,7 @@ export default function Profile() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <ToastContainer></ToastContainer>
-      <Header></Header>
+      <AppAppBar />
 
       <Stack
         className="w-100"
@@ -71,7 +72,7 @@ export default function Profile() {
           }}
         ></img>
         <Stack
-        className="w-100"
+          className="w-100"
           direction={{ xs: "column", sm: "column", md: "col", lg: "col" }}
           spacing={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
         >

@@ -10,6 +10,7 @@ import NorthEastIcon from '@mui/icons-material/NorthEast';
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Stack } from "@mui/material";
+import AppAppBar from "../components/AppBar";
 
 export default function Dashboard() {
   const auth = localStorage.getItem("token");
@@ -47,7 +48,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
+    <div className="mt-5">
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
@@ -55,7 +56,7 @@ export default function Dashboard() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <ToastContainer></ToastContainer>
-      <Header />
+      <AppAppBar />
       <Stack
         direction={{ xs: "row", sm: "row" }}
         spacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}
@@ -75,6 +76,6 @@ export default function Dashboard() {
           />
       </Stack>
      
-    </>
+    </div>
   );
 }

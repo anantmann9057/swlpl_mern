@@ -167,10 +167,10 @@ export default function SignIn() {
       <ToastContainer></ToastContainer>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card variant="outlined" className="container-fluid">
           {isOtpSent ? (
             <div
-              className="container-fluid 2-100"
+              className="container-fluid w-100"
               style={{
                 alignContent: "center",
               }}
