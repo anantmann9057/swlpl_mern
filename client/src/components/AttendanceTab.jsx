@@ -107,6 +107,8 @@ export default function AttendanceTab() {
         console.log(response.data);
         if (response.data.status == "3") {
           localStorage.clear();
+          navigate("/login");
+
         }
         if (response.data.status == "1") {
           window.location.reload();
@@ -141,6 +143,8 @@ export default function AttendanceTab() {
         console.log(response.data);
         if (response.data.status == "3") {
           localStorage.clear();
+          navigate("/login");
+
         }
         if (response.data.status == "1") {
           window.location.reload();
