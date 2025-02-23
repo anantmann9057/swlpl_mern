@@ -1,9 +1,12 @@
 export default function CaseIdCard(props) {
   return (
-    <div className="m-2">
+    <div className="m-2" key={props.key}>
       <div
-        className="card text-white bg-info mb-3"
-     
+        className="card text-white mb-3"
+      style={{
+        color:'darkcyan',
+        backgroundColor:"darkcyan"
+      }}
       >
         <div className="card-body">
           <h5 className="card-title">{props.title}</h5>

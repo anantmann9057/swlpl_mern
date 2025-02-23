@@ -27,12 +27,10 @@ export default function AttendanceTab() {
   const [inApprovalList, setInList] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [notes, setNotes] = useState("");
-  const [requestData, setRequestData] = useState({
-    id: "",
-    notes: "",
-    status: "",
-    type: "",
-  });
+  const [id, setId] = useState();
+  const [status, setStatus] = useState();
+  const [type, setType] = useState();
+
   useEffect(() => {
     if (auth) {
       setOpen(true);
@@ -90,6 +88,8 @@ export default function AttendanceTab() {
   }, []);
 
   const approveAttendance = ({ id, notes, status, type }) => {
+    setOpenDialog(false);
+
     setOpen(true);
     axios
       .post(
@@ -121,7 +121,10 @@ export default function AttendanceTab() {
   };
 
   const rejectAttendance = ({ id, notes, status, type }) => {
+    setOpenDialog(false);
+
     setOpen(true);
+
     axios
       .post(
         import.meta.env.VITE_SERVER_BASE_URL + "/attendance/rejectRequest",
@@ -158,7 +161,7 @@ export default function AttendanceTab() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <ToastContainer></ToastContainer>
+      <ToastContainer />
       <Tabs
         defaultActiveKey="clock_in"
         id="fill-tab-example"
@@ -191,13 +194,9 @@ export default function AttendanceTab() {
                         className="w-100"
                         onClick={() => {
                           setOpenDialog(true);
-
-                          setRequestData({
-                            id: data.id,
-                            status: "2",
-                            type: "in_status",
-                            notes: notes,
-                          });
+                          setId(data.id);
+                          setStatus("2");
+                          setType("in_status");
                         }}
                       >
                         Approve
@@ -208,13 +207,9 @@ export default function AttendanceTab() {
                         variant="danger"
                         onClick={() => {
                           setOpenDialog(true);
-
-                          setRequestData({
-                            id: data.id,
-                            status: "0",
-                            type: "in_status",
-                            notes: notes,
-                          });
+                          setId(data.id);
+                          setStatus("0");
+                          setType("in_status");
                         }}
                         className="w-100"
                       >
@@ -253,13 +248,9 @@ export default function AttendanceTab() {
                         className="w-100"
                         onClick={() => {
                           setOpenDialog(true);
-
-                          setRequestData({
-                            id: data.id,
-                            status: "2",
-                            type: "out_status",
-                            notes: notes,
-                          });
+                          setId(data.id);
+                          setStatus("2");
+                          setType("out_status");
                         }}
                       >
                         Approve
@@ -270,13 +261,9 @@ export default function AttendanceTab() {
                         variant="danger"
                         onClick={() => {
                           setOpenDialog(true);
-
-                          setRequestData({
-                            id: data.id,
-                            status: "0",
-                            type: "out_status",
-                            notes: notes,
-                          });
+                          setId(data.id);
+                          setStatus("0");
+                          setType("out_status");
                         }}
                         className="w-100"
                       >
@@ -311,13 +298,13 @@ export default function AttendanceTab() {
         <DialogTitle>Are you Sure?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {requestData.status == 2 ? "approve" : "reject"} request?
+            {status == "2" ? "approve" : "reject"} request?
           </DialogContentText>
           <TextField
             autoFocus
             required
             margin="normal"
-            id="name"
+            id="notes"
             name="email"
             label="notes"
             fullWidth
@@ -338,14 +325,17 @@ export default function AttendanceTab() {
           <Button
             type="submit"
             onClick={() => {
-              if (requestData.status == 2) {
-                approveAttendance(requestData);
-              } else {
-                rejectAttendance(requestData);
-              }
+              const element = document.getElementById("notes");
+              setNotes(element.target);
+
+                if (status == 2) {
+                  approveAttendance({ id:id,notes:notes,status:status,type:type });
+                } else {
+                  rejectAttendance({  id:id,notes:notes,status:status,type:type });
+                }
             }}
           >
-            Subscribe
+            Submit
           </Button>
         </DialogActions>
       </Dialog>
