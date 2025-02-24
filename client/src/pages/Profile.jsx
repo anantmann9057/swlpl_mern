@@ -7,8 +7,9 @@ import { Col, Row } from "react-bootstrap";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "react-bootstrap/Button";
-import { Stack } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import AppAppBar from "../components/AppBar";
+
 export default function Profile() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -53,46 +54,38 @@ export default function Profile() {
       </Backdrop>
       <ToastContainer></ToastContainer>
       <AppAppBar />
-
+      <img
+        className="container-fluid  w-100"
+        src={
+          "https://apnagodam.com/resources/assets/upload/employees/" +
+          JSON.parse(localStorage.getItem("user")).passport_image
+        }
+        style={{
+          objectFit: "contain",
+          maxHeight: "50vh",
+        }}
+      ></img>
       <Stack
         className="w-100"
-        direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
-        spacing={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+        direction={{ xs: "column", sm: "column", md: "column", lg: "column" }}
+        spacing={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2 }}
       >
-        <img
-          className="container rounded-circle  "
-          src={
-            "https://apnagodam.com/resources/assets/upload/employees/" +
-            JSON.parse(localStorage.getItem("user")).passport_image
-          }
-          style={{
-            objectFit: "cover",
-            maxHeight: "100vh",
-            maxWidth: "35%",
-          }}
-        ></img>
-        <Stack
-          className="w-100"
-          direction={{ xs: "column", sm: "column", md: "col", lg: "col" }}
-          spacing={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
-        >
-          <Button variant="light" className="container-fluid w-100 m-1">
-            {JSON.parse(localStorage.getItem("user")).first_name}{" "}
-            {JSON.parse(localStorage.getItem("user")).last_name}
-          </Button>
+        <Button variant="light" className="container-fluid w-100 m-1">
+          {JSON.parse(localStorage.getItem("user")).first_name}{" "}
+          {JSON.parse(localStorage.getItem("user")).last_name}
+        </Button>
 
-          <Button variant="light" className="container-fluid w-100 m-1">
-            {JSON.parse(localStorage.getItem("user")).emp_id}
-          </Button>
+        <Button variant="light" className="container-fluid w-100 m-1">
+          {JSON.parse(localStorage.getItem("user")).emp_id}
+        </Button>
 
-          <Button variant="light" className="container-fluid w-100 m-1">
-            {JSON.parse(localStorage.getItem("user")).personal_phone}
-          </Button>
+        <Button variant="light" className="container-fluid w-100 m-1">
+          {JSON.parse(localStorage.getItem("user")).personal_phone}
+        </Button>
 
-          <Button variant="light" className="container-fluid w-100 m-1">
-            {JSON.parse(localStorage.getItem("user")).phone}
-          </Button>
-        </Stack>
+        <Button variant="light" className="container-fluid w-100 m-1">
+          {JSON.parse(localStorage.getItem("user")).phone}
+        </Button>
       </Stack>
     </div>
   );
