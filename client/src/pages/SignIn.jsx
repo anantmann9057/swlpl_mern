@@ -174,30 +174,43 @@ export default function SignIn() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined" className="container-fluid">
+      <SignInContainer
+        direction="column"
+        justifyContent="center"
+        className="p-1"
+      >
+        <Card variant="outlined" className="container-fluid p-2 m-0">
           {isOtpSent ? (
-            <div
-              className="container-fluid w-100"
-              style={{
-                alignContent: "center",
-              }}
-            >
-            <img src={logo} className="w-100" />
+            <div className="container-fluid w-100">
+              <div
+                className="container-fluid w-100 d-flex justify-content-center"
+                style={{}}
+              >
+                <img
+                  src={logo}
+                  style={{
+                    width: "35%",
+                    height: "35%",
+                  }}
+                />
+              </div>
               <h3 className="body mt-2 mb-2">Enter OTP</h3>
               <MuiOtpInput
                 length={6}
                 value={otp}
-                className="mt-2 mb-2"
+                className="container-fluid"
                 onChange={(orp) => {
                   setOtp(orp);
 
                   console.log(orp);
                 }}
               />
-              <p className="mt-2 mb-2" style={{
-                fontSize:"12px"
-              }}>
+              <p
+                className="mt-2 mb-2"
+                style={{
+                  fontSize: "12px",
+                }}
+              >
                 Otp has been sent to your mobile please input to login
               </p>
 
@@ -218,7 +231,7 @@ export default function SignIn() {
             </div>
           ) : (
             <>
-            <img src={logo} />
+              <img src={logo} />
               <Typography
                 component="h1"
                 variant="body"
@@ -249,7 +262,7 @@ export default function SignIn() {
                     autoFocus
                     required
                     fullWidth
-                    variant="outlined" 
+                    variant="outlined"
                     onChange={(e) => {
                       setEmpId(e.target.value);
                     }}

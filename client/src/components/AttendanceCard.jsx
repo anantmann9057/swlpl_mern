@@ -80,6 +80,7 @@ export default function AttendanceCard() {
           setOpen(false);
 
           if (response.data.status == "3") {
+            navigate("/login");
             localStorage.clear();
           }
           toast(response.data.status.message);
@@ -121,6 +122,7 @@ export default function AttendanceCard() {
 
         if (response.data.status == "3") {
           localStorage.clear();
+          navigate('/login');
         }
         toast(response.data.message);
 

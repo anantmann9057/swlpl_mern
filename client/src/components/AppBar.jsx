@@ -112,7 +112,7 @@ export default function AppAppBar() {
               size="small"
               onClick={() => {
                 localStorage.clear();
-                window.location.reload();
+                navigate("/login")
               }}
             >
               Logout

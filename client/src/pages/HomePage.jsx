@@ -20,6 +20,9 @@ export default function HomePage() {
       setLogin(true);
       toast("success")
     }
+    else{
+      setLogin(false);
+    }
    
   }, []);
   return (

@@ -67,7 +67,7 @@ export default function LoginPage() {
   }
   return (
     <div
-      className="container "
+      className="container p-0 m-0"
       style={{
         height: "100vh",
         alignContent: "center",
@@ -82,13 +82,14 @@ export default function LoginPage() {
       </Backdrop>
       {isOtpSent ? (
         <div
-          className="container-fluid 2-100"
+          className="container-fluid w-100"
           style={{
             alignContent: "center",
           }}
         >
           <h3>Enter OTP</h3>
           <MuiOtpInput
+          className="container-fluid m-0 p-0"
             length={6}
             value={otp}
             onChange={(orp) => {

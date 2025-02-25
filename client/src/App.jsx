@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import Attendance from "./pages/Attendance";
+import SignIn from "./pages/SignIn";
 function App() {
   return (
     <div
@@ -21,7 +22,7 @@ function App() {
         <Route path="attendance" element={<Attendance />}></Route>
 
         <Route path="profile" element={<Profile />}></Route>
-        <Route path="login" element={<LoginPage />}></Route>
+        <Route path="login" element={<SignIn />}></Route>
       </Routes>
       <ToastContainer />
     </div>
