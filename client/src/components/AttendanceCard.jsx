@@ -46,10 +46,34 @@ export default function AttendanceCard() {
       console.log("onFilesSuccessfullySelected", plainFiles, filesContent);
     },
   });
+  function getAttendanceStatus() {
+    axios
+      .post(
+        import.meta.env.VITE_SERVER_BASE_URL + "/attendance/attendanceStatus",
+        {
+          authToken: localStorage.getItem("token"),
+        }
+      )
+      .then((response) => {
+        setOpen(false);
 
+        if (response.data.status == "3") {
+          localStorage.clear();
+        }
+        toast(response.data.status.message);
+        var clock = response.data.clock_status;
+        setClockStatus(clock);
+        console.log(response);
+        console.log(clockStatus);
+      })
+      .catch((e) => {
+        setOpen(false);
+      });
+  }
   useEffect(() => {
     if (auth) {
       setOpen(true);
+      getAttendanceStatus();
       navigator.geolocation.getCurrentPosition((success, error) => {
         if (error) {
           toast("Failed to fetch Location!");
@@ -69,29 +93,6 @@ export default function AttendanceCard() {
           })
           .catch(console.error);
       });
-      axios
-        .post(
-          import.meta.env.VITE_SERVER_BASE_URL + "/attendance/attendanceStatus",
-          {
-            authToken: localStorage.getItem("token"),
-          }
-        )
-        .then((response) => {
-          setOpen(false);
-
-          if (response.data.status == "3") {
-            navigate("/login");
-            localStorage.clear();
-          }
-          toast(response.data.status.message);
-          var clock = response.data.clock_status;
-          setClockStatus(clock);
-          console.log(response);
-          console.log(clockStatus);
-        })
-        .catch((e) => {
-          setOpen(false);
-        });
     } else {
       navigate("/login");
     }
@@ -123,7 +124,10 @@ export default function AttendanceCard() {
         if (response.data.status == "3") {
           localStorage.clear();
           navigate('/login');
+          navigate('/login');
         }
+        getAttendanceStatus();
+
         toast(response.data.message);
 
         console.log(response.data);
@@ -141,7 +145,6 @@ export default function AttendanceCard() {
       });
   };
 
-  
   const handleDownloadImage = async () => {
     const element = document.getElementById("atn_image"),
       canvas = await html2canvas(element),

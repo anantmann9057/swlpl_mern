@@ -95,8 +95,6 @@ export default function AppAppBar() {
               >
                 Attendance
               </Button>
-
-             
             </Box>
           </Box>
           <Box
