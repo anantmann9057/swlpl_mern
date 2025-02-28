@@ -4,10 +4,7 @@ import {
   sendOtp,
   verifyOtp,
 } from "../controllers/AuthController.js";
-import {
-  approveAttendanceRequest,
-  rejectAttendanceRequest,
-} from "../controllers/AttendanceController.js";
+
 const authRouter = Router();
 
 authRouter.post("/sendOtp", sendOtp);

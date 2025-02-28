@@ -124,7 +124,6 @@ export default function AttendanceCard() {
         if (response.data.status == "3") {
           localStorage.clear();
           navigate('/login');
-          navigate('/login');
         }
         getAttendanceStatus();
 

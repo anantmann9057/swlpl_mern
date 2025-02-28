@@ -104,7 +104,6 @@ export default function Dashboard() {
         spacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}
       >
         <CaseIdCard
-          key={0}
           title="Inwards Requests"
           header="Inwards"
           icon={<SouthWestIcon></SouthWestIcon>}
@@ -112,7 +111,6 @@ export default function Dashboard() {
         />
 
         <CaseIdCard
-          key={1}
           title="Outwards Requests"
           header="Outwards"
           icon={<NorthEastIcon></NorthEastIcon>}
