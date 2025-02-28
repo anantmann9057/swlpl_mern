@@ -53,27 +53,26 @@ export default function AppAppBar() {
           <Box
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
-           <Button
-                variant="text"
-                color="info"
-                size="small"
-                
-                onClick={() => {
-                  navigate("/profile");
+            <Button
+              variant="text"
+              color="info"
+              size="small"
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
+              <img
+                className="rounded-circle"
+                src={
+                  "https://apnagodam.com/resources/assets/upload/employees/" +
+                  JSON.parse(localStorage.getItem("user")).passport_image
+                }
+                style={{
+                  width: "25px",
+                  height: "25px",
                 }}
-              >
-                <img
-                  className="rounded-circle"
-                  src={
-                    "https://apnagodam.com/resources/assets/upload/employees/" +
-                    JSON.parse(localStorage.getItem("user")).passport_image
-                  }
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                  }}
-                ></img>
-              </Button>
+              ></img>
+            </Button>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Button
                 variant="text"
@@ -110,7 +109,7 @@ export default function AppAppBar() {
               size="small"
               onClick={() => {
                 localStorage.clear();
-                navigate("/login")
+                navigate("/login");
               }}
             >
               Logout

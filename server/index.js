@@ -8,12 +8,13 @@ import * as dotenv from "dotenv";
 import authRouter from "./routes/AuthRouter.js";
 import { dbConnect } from "./database/db.js";
 import attendanceRouter from "./routes/AttendanceRouter.js";
-import caseRouter from "./routes/CaseRoutes.js";
 const app = express();
 dotenv.config({ path: "../.env" });
 
 dbConnect();
-app.use(cors({ origin:"http://localhost:5173", credentials: false }));
+app.use(
+  cors({ origin: "https://swlpl-mern-1.onrender.com", credentials: true })
+);
 app.use(express.json({ limit: "50mb" }));
 // app.use(cookieParser());
 app.use(
@@ -22,7 +23,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     proxy: true,
-    cookie: { secure: true, maxAge: 900000, sameSite: "none" }, // chang1e sameSite: strict to sameSite:none for production and secure true
+    cookie: { secure: false, maxAge: 900000, sameSite: "strict" }, // change sameSite: strict to sameSite:none for production and secure true
     unset: "destroy",
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_DB_URL, // you have to provide some storage to store session data
@@ -44,14 +45,6 @@ app.use(
     next();
   },
   attendanceRouter
-);
-
-app.use(
-  "/cases",
-  (req, res, next) => {
-    next();
-  },
-  caseRouter
 );
 app.get("/", (req, res) => {
   res.json("hello");
