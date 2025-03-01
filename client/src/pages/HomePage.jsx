@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import LoginPage from "./LoginPage";
 import axios from "axios";
 import Dashboard from "./Dashboard";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import SignIn from "./SignIn";
 
@@ -18,20 +18,12 @@ export default function HomePage() {
       setUser(JSON.parse(localStorage.getItem("user")));
       setToken(localStorage.getItem("token"));
       setLogin(true);
-      toast("success")
+      toast("success");
     }
     else{
       setLogin(false);
     }
    
   }, []);
-  return (
-    <div>
-      {isLogin ? (
-      <Dashboard></Dashboard>
-      ) : (
-        <SignIn />
-      )}
-    </div>
-  );
+  return <div>{isLogin ? <Dashboard></Dashboard> : <SignIn />}</div>;
 }

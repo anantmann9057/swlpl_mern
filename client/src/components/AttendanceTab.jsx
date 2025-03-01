@@ -31,65 +31,68 @@ export default function AttendanceTab() {
   const [status, setStatus] = useState();
   const [type, setType] = useState();
 
+  function getApprovallist() {
+    axios
+      .post(
+        import.meta.env.VITE_SERVER_BASE_URL + "/attendance/approvalListOut",
+        {
+          authToken: localStorage.getItem("token"),
+        }
+      )
+      .then((response) => {
+        setOpen(false);
+
+        if (response.data.status == "3") {
+          localStorage.clear();
+        }
+        if (response.data.out_atten_data) {
+          setOutList(response.data.out_atten_data);
+        }
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+
+        setOpen(false);
+      });
+
+    setOpen(true);
+    axios
+      .post(
+        import.meta.env.VITE_SERVER_BASE_URL + "/attendance/approvalListIn",
+        {
+          authToken: localStorage.getItem("token"),
+        }
+      )
+      .then((response) => {
+        setOpen(false);
+
+        if (response.data.status == "3") {
+          localStorage.clear();
+        }
+        if (response.data.in_atten_data) {
+          setInList(response.data.in_atten_data);
+        }
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+
+        setOpen(false);
+      });
+  }
   useEffect(() => {
     if (auth) {
       setOpen(true);
-      axios
-        .post(
-          import.meta.env.VITE_SERVER_BASE_URL + "/attendance/approvalListOut",
-          {
-            authToken: localStorage.getItem("token"),
-          }
-        )
-        .then((response) => {
-          setOpen(false);
-
-          if (response.data.status == "3") {
-            localStorage.clear();
-            navigate('/login');
-          }
-          if (response.data.out_atten_data) {
-            setOutList(response.data.out_atten_data);
-          }
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-
-          setOpen(false);
-        });
-
-      setOpen(true);
-      axios
-        .post(
-          import.meta.env.VITE_SERVER_BASE_URL + "/attendance/approvalListIn",
-          {
-            authToken: localStorage.getItem("token"),
-          }
-        )
-        .then((response) => {
-          setOpen(false);
-
-          if (response.data.status == "3") {
-            localStorage.clear();
-            navigate('/login');
-          }
-          if (response.data.in_atten_data) {
-            setInList(response.data.in_atten_data);
-          }
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-
-          setOpen(false);
-        });
+      getApprovallist();
     } else {
       navigate("/login");
     }
   }, []);
 
   const approveAttendance = ({ id, notes, status, type }) => {
+    setOpenDialog(false);
+
     setOpenDialog(false);
 
     setOpen(true);
@@ -110,10 +113,9 @@ export default function AttendanceTab() {
         if (response.data.status == "3") {
           localStorage.clear();
           navigate("/login");
-
         }
         if (response.data.status == "1") {
-          window.location.reload();
+          getApprovallist();
         }
         toast(response.data.message);
       })
@@ -127,7 +129,10 @@ export default function AttendanceTab() {
   const rejectAttendance = ({ id, notes, status, type }) => {
     setOpenDialog(false);
 
+    setOpenDialog(false);
+
     setOpen(true);
+
 
     axios
       .post(
@@ -146,10 +151,9 @@ export default function AttendanceTab() {
         if (response.data.status == "3") {
           localStorage.clear();
           navigate("/login");
-
         }
         if (response.data.status == "1") {
-          window.location.reload();
+         getApprovallist();
         }
         toast(response.data.message);
       })
@@ -168,6 +172,7 @@ export default function AttendanceTab() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <ToastContainer />
+      <ToastContainer />
       <Tabs
         defaultActiveKey="clock_in"
         id="fill-tab-example"
@@ -185,13 +190,25 @@ export default function AttendanceTab() {
                 >
                   <Typography component="span">
                     {data.first_name} {data.last_name} {data.emp_id} (
-                    {data.emp_id})
+                    {data.emp_id}) IN Time {data.time} Distance -{" "}
+                    {data.distance > 1000
+                      ? data.distance / 1000
+                      : data.distance}
+                    {data.distance > 1000 ? " KM" : " Meters."}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>IN Time - {data.time}</Typography>
+                  <Typography>
+                    {" "}
+                    Distance -{" "}
+                    {data.distance > 1000
+                      ? data.distance / 1000
+                      : data.distance}
+                    {data.distance > 1000 ? " KM" : " Meters."}
+                  </Typography>
 
-                  <img src={data.image} className="mt-5"></img>
+                  <img src={data.image} className="mt-5 container-fluid"></img>
 
                   <Row className="mt-5">
                     <Col className="w-100">
@@ -200,6 +217,9 @@ export default function AttendanceTab() {
                         className="w-100"
                         onClick={() => {
                           setOpenDialog(true);
+                          setId(data.id);
+                          setStatus("2");
+                          setType("in_status");
                           setId(data.id);
                           setStatus("2");
                           setType("in_status");
@@ -213,6 +233,9 @@ export default function AttendanceTab() {
                         variant="danger"
                         onClick={() => {
                           setOpenDialog(true);
+                          setId(data.id);
+                          setStatus("0");
+                          setType("in_status");
                           setId(data.id);
                           setStatus("0");
                           setType("in_status");
@@ -239,13 +262,25 @@ export default function AttendanceTab() {
                 >
                   <Typography component="span">
                     {data.first_name} {data.last_name} {data.emp_id} (
-                    {data.emp_id})
+                    {data.emp_id}) OUT Time {data.time} Distance -{" "}
+                    {data.distance > 1000
+                      ? data.distance / 1000
+                      : data.distance}
+                    {data.distance > 1000 ? " KM" : " Meters."}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>Out Time - {data.time}</Typography>
+                  <Typography>
+                    {" "}
+                    Distance -{" "}
+                    {data.distance > 1000
+                      ? data.distance / 1000
+                      : data.distance}
+                    {data.distance > 1000 ? " KM" : " Meters."}
+                  </Typography>
 
-                  <img src={data.image} className="mt-5"></img>
+                  <img src={data.image} className="mt-5 container-fluid"></img>
 
                   <Row className="mt-5">
                     <Col className="w-100">
@@ -254,6 +289,9 @@ export default function AttendanceTab() {
                         className="w-100"
                         onClick={() => {
                           setOpenDialog(true);
+                          setId(data.id);
+                          setStatus("2");
+                          setType("out_status");
                           setId(data.id);
                           setStatus("2");
                           setType("out_status");
@@ -267,6 +305,9 @@ export default function AttendanceTab() {
                         variant="danger"
                         onClick={() => {
                           setOpenDialog(true);
+                          setId(data.id);
+                          setStatus("0");
+                          setType("out_status");
                           setId(data.id);
                           setStatus("0");
                           setType("out_status");
@@ -305,6 +346,7 @@ export default function AttendanceTab() {
         <DialogContent>
           <DialogContentText>
             {status == "2" ? "approve" : "reject"} request?
+            {status == "2" ? "approve" : "reject"} request?
           </DialogContentText>
           <TextField
             autoFocus
@@ -334,13 +376,24 @@ export default function AttendanceTab() {
               const element = document.getElementById("notes");
               setNotes(element.target);
 
-                if (status == 2) {
-                  approveAttendance({ id:id,notes:notes,status:status,type:type });
-                } else {
-                  rejectAttendance({  id:id,notes:notes,status:status,type:type });
-                }
+              if (status == 2) {
+                approveAttendance({
+                  id: id,
+                  notes: notes,
+                  status: status,
+                  type: type,
+                });
+              } else {
+                rejectAttendance({
+                  id: id,
+                  notes: notes,
+                  status: status,
+                  type: type,
+                });
+              }
             }}
           >
+            Submit
             Submit
           </Button>
         </DialogActions>

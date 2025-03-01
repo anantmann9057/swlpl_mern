@@ -7,7 +7,7 @@ export const getCaseRequests = (req, res) => {
   };
   axios
     .post(
-      process.env.PRODUCTION_URL + "/emp_api/apna_emp_stack_request",
+      process.env.PRODUCTION_URL + "emp_api/apna_emp_stack_request",
       {},
       {
         headers: headers,
