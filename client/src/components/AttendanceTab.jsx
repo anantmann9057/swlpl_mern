@@ -46,6 +46,7 @@ export default function AttendanceTab() {
 
           if (response.data.status == "3") {
             localStorage.clear();
+            navigate('/login');
           }
           if (response.data.out_atten_data) {
             setOutList(response.data.out_atten_data);
@@ -71,6 +72,7 @@ export default function AttendanceTab() {
 
           if (response.data.status == "3") {
             localStorage.clear();
+            navigate('/login');
           }
           if (response.data.in_atten_data) {
             setInList(response.data.in_atten_data);
