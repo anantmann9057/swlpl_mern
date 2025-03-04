@@ -1,15 +1,11 @@
-import Header from "../components/Header";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "react-bootstrap/Button";
-import { Divider, Stack } from "@mui/material";
 import AppAppBar from "../components/AppBar";
-
+import "../styles/profile.css";
 export default function Profile() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -26,14 +22,12 @@ export default function Profile() {
         })
         .then((response) => {
           setOpen(false);
-
           if (response.data.status == "3") {
             localStorage.clear();
             navigate("/login");
           }
           if (response.data.status == "1") {
             setProfileData(response.data.profile_data);
-            toast(response.data.message);
           }
         })
         .catch((e) => {
@@ -43,7 +37,48 @@ export default function Profile() {
       navigate("/login");
     }
   }, []);
-
+  function Example() {
+    return (
+      <div>
+        <div className="mt-6 border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 align-content: center;">
+              <dt className="text-sm/6 font-medium text-gray-900">Full name</dt>
+              <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {JSON.parse(localStorage.getItem("user")).first_name +
+                  " " +
+                  JSON.parse(localStorage.getItem("user")).last_name}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-900">
+                Employee Code
+              </dt>
+              <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {JSON.parse(localStorage.getItem("user")).emp_id}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-900">
+                Mobile No.
+              </dt>
+              <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {JSON.parse(localStorage.getItem("user")).personal_phone}
+              </dd>
+            </div>
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm/6 font-medium text-gray-900">
+                Designation
+              </dt>
+              <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                {JSON.parse(localStorage.getItem("user")).designation}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="container-fluid m-0 p-0 w-100 mt-5">
       <Backdrop
@@ -65,28 +100,8 @@ export default function Profile() {
           maxHeight: "50vh",
         }}
       ></img>
-      <Stack
-        className="w-100"
-        direction={{ xs: "column", sm: "column", md: "column", lg: "column" }}
-        spacing={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2 }}
-      >
-        <Button variant="light" className="container-fluid w-100 m-1">
-          {JSON.parse(localStorage.getItem("user")).first_name}{" "}
-          {JSON.parse(localStorage.getItem("user")).last_name}
-        </Button>
 
-        <Button variant="light" className="container-fluid w-100 m-1">
-          {JSON.parse(localStorage.getItem("user")).emp_id}
-        </Button>
-
-        <Button variant="light" className="container-fluid w-100 m-1">
-          {JSON.parse(localStorage.getItem("user")).personal_phone}
-        </Button>
-
-        <Button variant="light" className="container-fluid w-100 m-1">
-          {JSON.parse(localStorage.getItem("user")).phone}
-        </Button>
-      </Stack>
+      <Example></Example>
     </div>
   );
 }

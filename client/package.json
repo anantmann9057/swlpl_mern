@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@mui/icons-material": "^6.4.4",
+    "@tailwindcss/vite": "^4.0.9",
+    "@toolpad/core": "^0.12.1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -27,6 +29,7 @@
     "express-async-errors": "^3.1.1",
     "express-session": "^1.18.1",
     "express-sessions": "^1.0.6",
+    "flowbite": "^3.1.2",
     "formidable": "^3.5.2",
     "google-auth-library": "^9.15.0",
     "html2canvas": "^1.4.1",
@@ -48,6 +51,7 @@
     "react-toastify": "^11.0.3",
     "reshelper": "^1.0.4",
     "server": "file:",
+    "tailwindcss": "^4.0.9",
     "use-file-picker": "^2.1.2",
     "validator": "^13.12.0",
     "zod": "^3.24.1"
