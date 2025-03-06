@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@mui/icons-material": "^6.4.4",
+    "@tailwindcss/vite": "^4.0.9",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -48,6 +50,7 @@
     "react-toastify": "^11.0.3",
     "reshelper": "^1.0.4",
     "server": "file:",
+    "tailwindcss": "^4.0.9",
     "use-file-picker": "^2.1.2",
     "validator": "^13.12.0",
     "zod": "^3.24.1"
